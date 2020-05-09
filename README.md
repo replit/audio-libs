@@ -1,5 +1,7 @@
 # README!
 
+[![Run on Repl.it](https://repl.it/badge/github/replit/audio-js)](https://repl.it/github/replit/audio-js)
+
 This is a boilerplate for typescript packages. Find and replace "`somepackage`" with the name of your package.
 
 ✔️ Compiles your package into commonjs using the typescript compiler - `yarn build`
