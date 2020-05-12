@@ -13,7 +13,11 @@
     "declaration": true,
     "noImplicitAny": true,
     "removeComments": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+		"typeRoots": [
+			"node_modules/@types"
+    ],
+		"types": ["node"]
   },
   "include": ["src"],
   "exclude": ["src/**/__tests__"]
