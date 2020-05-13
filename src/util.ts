@@ -30,9 +30,14 @@ export async function getAudioStatus(): Promise<AudioStatus | null> {
 
 export async function getRawSource(id: number): Promise<SourceData> {
   const data = await getAudioStatus();
-  let source: SourceData;
+
+  if (!data) {
+    throw new SourceNotFoundError(`Could not find source with ID "${id}.`);
+  }
+
+  let source: SourceData | null = null;
   for (const s of data.Sources) {
-    if (s.ID == id) {
+    if (s.ID === id) {
       source = s;
       break;
     }
