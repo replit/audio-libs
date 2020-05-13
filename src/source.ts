@@ -6,8 +6,7 @@ interface SourceInterface {
   ID: number;
   filePath: string;
   volume: number;
-  doesLoop: boolean;
-  loopCount: number;
+  loop: number;
   duration: number;
   isPaused: boolean;
 
@@ -66,9 +65,7 @@ export default class Source implements SourceInterface {
 
   volume: number;
 
-  doesLoop: boolean;
-
-  loopCount: number;
+  loop: number;
 
   duration: number;
 
@@ -76,8 +73,7 @@ export default class Source implements SourceInterface {
 
   constructor(payload: SourceData) {
     this.volume = payload.Volume;
-    this.doesLoop = payload.DoesLoop;
-    this.loopCount = payload.LoopCount;
+    this.loop = payload.Loop;
     this.duration = payload.Duration;
     this.ID = payload.ID;
     this.filePath = payload.Name;
@@ -88,8 +84,8 @@ export default class Source implements SourceInterface {
     const data = JSON.stringify({
       ID: this.ID,
       Volume: this.volume,
-      DoesLoop: this.doesLoop,
-      LoopCount: this.loopCount,
+      DoesLoop: this.loop !== 0,
+      LoopCount: this.loop,
       Paused: this.isPaused,
     });
     await fs.writeFile('/tmp/audio', data);
@@ -103,9 +99,7 @@ export default class Source implements SourceInterface {
   };
 
   setLoop = async (n: number) => {
-    this.loopCount = n;
-    const x = n !== 0;
-    this.doesLoop = x;
+    this.loop = n;
     await this.writeData();
   };
 

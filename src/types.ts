@@ -5,8 +5,7 @@ export interface SourceData {
   Duration: number;
   Remaining: number;
   Paused: boolean;
-  LoopCount: number;
-  DoesLoop: boolean;
+  Loop: number;
   ID: number;
   EndTime: string;
   StartTime: string;

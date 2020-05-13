@@ -48,12 +48,12 @@ describe('Creates sources', () => {
 
     const source = await createSource(filePath);
 
-    expect((await getRawSource(source.ID)).LoopCount).toEqual(0);
+    expect((await getRawSource(source.ID)).Loop).toEqual(0);
     expect(await source.getRemainingLoops()).toEqual(0);
 
     source.setLoop(2);
     await sleep(1000);
-    expect((await getRawSource(source.ID)).LoopCount).toEqual(2);
+    expect((await getRawSource(source.ID)).Loop).toEqual(2);
     expect(await source.getRemainingLoops()).toEqual(2);
   });
 
