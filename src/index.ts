@@ -1,11 +1,7 @@
 import { promises as fs } from 'fs';
 import Source from './source';
-import { getAudioStatus } from './util';
+import { getAudioStatus, sleep } from './util';
 import { SourceData } from './types';
-
-async function sleep(timeMs: number) {
-  return new Promise((r) => setTimeout(r, timeMs));
-}
 
 const knownIds: Array<number> = [];
 export async function createSource(filePath: string, volume = 1, loop = 0): Promise<Source> {
@@ -45,7 +41,7 @@ export async function createSource(filePath: string, volume = 1, loop = 0): Prom
     const audioStatus = await getAudioStatus();
 
     if (!audioStatus) {
-      // We don't have an audio status
+      // We don't have an audio status, wait and retry
       await sleep(100);
 
       return getSourceData();

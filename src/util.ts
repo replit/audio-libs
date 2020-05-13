@@ -49,3 +49,7 @@ export async function getRawSource(id: number): Promise<SourceData> {
 
   return source;
 }
+
+export async function sleep(timeMs: number) {
+  return new Promise((r) => setTimeout(r, timeMs));
+}

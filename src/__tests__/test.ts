@@ -1,10 +1,6 @@
 import * as path from 'path';
 import { createSource } from '../index';
-import { getRawSource } from '../util';
-
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+import { getRawSource, sleep } from '../util';
 
 describe('Creates sources', () => {
   test('Succesfully creates a source', async () => {
