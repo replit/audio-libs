@@ -72,9 +72,3 @@ export async function createSource(filePath: string, volume = 1, loop = 0): Prom
 
   return new Source(payload);
 }
-
-// export function getSources(): Array<Source> {
-//   // check source data from json file
-//   // if we don't have a source for any of the sources
-//   // we create them
-// }

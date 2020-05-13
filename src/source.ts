@@ -51,11 +51,6 @@ interface SourceInterface {
    * source will restart.
    */
   getRemainingLoops(): Promise<number>;
-
-  /** Write Data
-   * Write data to /tmp/audio.
-   */
-  writeData(): Promise<void>;
 }
 
 export default class Source implements SourceInterface {
@@ -80,7 +75,10 @@ export default class Source implements SourceInterface {
     this.isPaused = payload.Paused;
   }
 
-  writeData = async () => {
+  /** Write Data
+   * Write data to /tmp/audio.
+   */
+  private writeData = async () => {
     const data = JSON.stringify({
       ID: this.ID,
       Volume: this.volume,
@@ -129,8 +127,8 @@ export default class Source implements SourceInterface {
 
   getRemainingLoops = async () => {
     const payload = await getRawSource(this.ID);
-    this.loopCount = payload.LoopCount;
+    this.loop = payload.Loop;
 
-    return payload.LoopCount;
+    return payload.Loop;
   };
 }
