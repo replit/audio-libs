@@ -5,7 +5,8 @@ export interface SourceData {
   Duration: number;
   Remaining: number;
   Paused: boolean;
-  Loop: number;
+  LoopCount: number;
+  DoesLoop: boolean;
   ID: number;
   EndTime: string;
   StartTime: string;
@@ -20,6 +21,6 @@ export interface AudioStatus {
 export class SourceNotFoundError extends Error {
   constructor(message: string) {
     super(message);
-    this.name = "SourceNotFoundError";
+    this.name = 'SourceNotFoundError';
   }
 }
