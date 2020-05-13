@@ -1,24 +1,18 @@
-import { promises as fs } from "fs";
-import { AudioStatus, SourceData, SourceNotFoundError } from "./types";
+import { promises as fs } from 'fs';
+import { AudioStatus, SourceData, SourceNotFoundError } from './types';
 
-const audioStatusPath = "/tmp/audioStatus.json";
+const audioStatusPath = '/tmp/audioStatus.json';
 
 export async function getAudioStatus(): Promise<AudioStatus | null> {
   try {
     await fs.access(audioStatusPath);
   } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(audioStatusPath, "not found", e);
-
     // no status found, exit
     return null;
   }
 
-  const data = await fs.readFile(audioStatusPath, { encoding: "utf8" });
+  const data = await fs.readFile(audioStatusPath, { encoding: 'utf8' });
   if (!data) {
-    // eslint-disable-next-line no-console
-    console.error("No data from", audioStatusPath);
-
     return null;
   }
 
@@ -26,7 +20,6 @@ export async function getAudioStatus(): Promise<AudioStatus | null> {
   try {
     audioStatus = JSON.parse(data);
   } catch (e) {
-    console.error("JSON parse error", audioStatusPath);
     return null;
   }
 
