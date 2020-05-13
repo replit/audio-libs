@@ -22,11 +22,11 @@ describe('Creates sources', () => {
 
     source.togglePlaying();
     await sleep(1000);
-    expect((await getRawSource(source.ID)).Paused).toEqual(false);
+    expect((await getRawSource(source.ID)).Paused).toEqual(true);
 
     source.togglePlaying();
     await sleep(1000);
-    expect((await getRawSource(source.ID)).Paused).toEqual(true);
+    expect((await getRawSource(source.ID)).Paused).toEqual(false);
   });
 
   test('Can change volume', async () => {
