@@ -1,16 +1,14 @@
-import { promises as fs } from "fs";
-import { SourceData } from "./types";
-import { getRawSource } from "./util";
+import { promises as fs } from 'fs';
+import { SourceData } from './types';
+import { getRawSource } from './util';
 
 interface SourceInterface {
   ID: number;
   filePath: string;
   volume: number;
-  doesLoop: number;
+  doesLoop: boolean;
   loopCount: number;
-
   duration: number;
-
   isPaused: boolean;
 
   /** Toggle Playing
@@ -62,6 +60,20 @@ interface SourceInterface {
 }
 
 export default class Source implements SourceInterface {
+  ID: number;
+
+  filePath: string;
+
+  volume: number;
+
+  doesLoop: boolean;
+
+  loopCount: number;
+
+  duration: number;
+
+  isPaused: boolean;
+
   constructor(payload: SourceData) {
     this.volume = payload.Volume;
     this.doesLoop = payload.DoesLoop;
@@ -80,18 +92,20 @@ export default class Source implements SourceInterface {
       LoopCount: this.loopCount,
       Paused: this.isPaused,
     });
-    await fs.writeFile("/tmp/audio", data);
+    await fs.writeFile('/tmp/audio', data);
   };
 
   togglePlaying = async () => {
     this.isPaused = !this.isPaused;
     await this.writeData();
+
     return this.isPaused;
   };
 
   setLoop = async (n: number) => {
     this.loopCount = n;
-    this.doesLoop = n !== 0;
+    const x = n !== 0;
+    this.doesLoop = x;
     await this.writeData();
   };
 
@@ -109,17 +123,20 @@ export default class Source implements SourceInterface {
 
   getEndTime = async () => {
     const payload = await getRawSource(this.ID);
+
     return new Date(payload.EndTime);
   };
 
   getStartTime = async () => {
     const payload = await getRawSource(this.ID);
+
     return new Date(payload.StartTime);
   };
 
   getRemainingLoops = async () => {
     const payload = await getRawSource(this.ID);
-    this.loopCount = payload.Loop;
-    return payload.Loop;
+    this.loopCount = payload.LoopCount;
+
+    return payload.LoopCount;
   };
 }
