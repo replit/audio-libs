@@ -4,4 +4,10 @@ module.exports = {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
+	globals: {
+    'ts-jest': {
+      diagnostics: false
+    }
+  },
+	setupFilesAfterEnv: ['./jest.setup.js']
 };

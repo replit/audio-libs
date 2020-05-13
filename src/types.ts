@@ -16,3 +16,10 @@ export interface AudioStatus {
   Running: boolean;
   Disabled: boolean;
 }
+
+export class SourceNotFoundError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "SourceNotFoundError";
+  }
+}
