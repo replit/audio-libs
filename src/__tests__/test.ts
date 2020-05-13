@@ -1,75 +1,68 @@
 import * as path from 'path';
 import { createSource } from '../index';
-import { getRawSource } from '../util'
+import { getRawSource } from '../util';
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 describe('Creates sources', () => {
-
-	setTimeout(() => {
-
-    callback && callback();
-  }, 60000);
-
   test('Succesfully creates a source', async () => {
-    const filePath = path.resolve(__dirname + '/test.wav');
+    const filePath = path.join(__dirname, '/test.wav');
 
     const source = await createSource(filePath);
-		// @ts-ignore
     expect(source.filePath).toEqual(filePath);
   });
 
-	test('Can pause source', async () => {
-		const filePath = path.resolve(__dirname + '/test.wav');
+  test('Can pause source', async () => {
+    const filePath = path.join(__dirname, '/test.wav');
 
     const source = await createSource(filePath);
-		// @ts-ignore
     expect(source.filePath).toEqual(filePath);
 
-		source.togglePlaying()
+    source.togglePlaying();
+    await sleep(1000);
+    expect((await getRawSource(source.ID)).Paused).toEqual(false);
 
-		await sleep(3000)
+    source.togglePlaying();
+    await sleep(1000);
+    expect((await getRawSource(source.ID)).Paused).toEqual(true);
+  });
 
-		source.togglePlaying()
+  test('Can change volume', async () => {
+    const filePath = path.join(__dirname, '/test.wav');
 
-		await sleep(3000)
-	})
+    const source = await createSource(filePath);
 
-	test('Can change volume', async () => {
-		const filePath = path.resolve(__dirname + '/test.wav');
+    source.setVolume(2);
+    await sleep(1000);
+    expect((await getRawSource(source.ID)).Volume).toEqual(2);
 
-		const source = await createSource(filePath);
+    source.setVolume(0.2);
+    await sleep(1000);
+    expect((await getRawSource(source.ID)).Volume).toEqual(0.2);
+  });
 
-		source.setVolume(2)
-		await sleep(3000)
-		source.setVolume(.2)
-		await sleep(3000)
-	});
+  test('Can set loop', async () => {
+    const filePath = path.join(__dirname, '/test.wav');
 
-	test('Can set loop', async () => {
-		const filePath = path.resolve(__dirname + '/test.wav');
+    const source = await createSource(filePath);
 
-		const source = await createSource(filePath);
+    expect((await getRawSource(source.ID)).LoopCount).toEqual(0);
+    expect(await source.getRemainingLoops()).toEqual(0);
 
-		expect((await getRawSource(source.ID)).Loop).toEqual(0)
-		expect(await source.getRemainingLoops()).toEqual(0)
+    source.setLoop(2);
+    await sleep(1000);
+    expect((await getRawSource(source.ID)).LoopCount).toEqual(2);
+    expect(await source.getRemainingLoops()).toEqual(2);
+  });
 
-		source.setLoop(2)
-		await sleep(3000)
-		expect((await getRawSource(source.ID)).Loop).toEqual(2)
-		expect(await source.getRemainingLoops()).toEqual(2)
+  test('Other functions return properly', async () => {
+    const filePath = path.join(__dirname, '/test.wav');
 
-		await sleep(3000)
-	})
-
-	test('Other functions return properly', async () => {
-		const filePath = path.resolve(__dirname + '/test.wav');
-
-		const source = await createSource(filePath);
-		expect(await source.getStartTime).toBeTruthy();
-		expect(await source.getEndTime).toBeTruthy();
-		expect(await source.getTimeRemaining).toBeTruthy();
-	})
+    const source = await createSource(filePath);
+    expect(await source.getStartTime).toBeTruthy();
+    expect(await source.getEndTime).toBeTruthy();
+    expect(await source.getTimeRemaining).toBeTruthy();
+  });
 });
