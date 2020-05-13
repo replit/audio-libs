@@ -41,6 +41,7 @@ module.exports = {
     'object-curly-newline': 'off',
     'no-plusplus': 'off',
     'newline-before-return': 'error',
+    'no-continue': 'off',
     'no-restricted-syntax': 'off',
   },
   globals: {
