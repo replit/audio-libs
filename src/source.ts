@@ -6,7 +6,6 @@ interface SourceInterface {
   ID: number;
   filePath: string;
   volume: number;
-  loop: number;
   duration: number;
   isPaused: boolean;
 
@@ -60,7 +59,7 @@ export default class Source implements SourceInterface {
 
   volume: number;
 
-  loop: number;
+  private loop: number;
 
   duration: number;
 
