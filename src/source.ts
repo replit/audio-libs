@@ -3,49 +3,74 @@ import { SourceData } from './types';
 import { getRawSource } from './util';
 
 interface SourceInterface {
+  /**
+   * The ID of the source.
+   */
   ID: number;
+
+  /**
+   * The path of the file.
+   * This should be whatr you
+   * provided when you created
+   * the source.
+   */
   filePath: string;
+
+  /**
+   * The volume the source is currently set to.
+   */
   volume: number;
+
+  /**
+   * The estimated duration of the file.
+   */
   duration: number;
+
+  /**
+   * Wether the source is paused or not.
+   */
   isPaused: boolean;
 
-  /** Toggle Playing
+  /**
    * Toggles between playing and pausing
    * returns a boolean indicating play
    * status. true means playing
    */
   togglePlaying(): Promise<boolean>;
-  /** Set Loop
+
+  /**
    * Sets the number of times
    * the audio file will loops.
    * Negative n will loop forever
    * Zero will play once.
    */
   setLoop(n: number): Promise<void>;
-  /** Set Volume
+
+  /**
    * 0 for 0% and 1 for 100%
    * You can amplify the volume
    */
   setVolume(vol: number): Promise<void>;
 
-  /** Get Time getTimeRemaining
+  /**
    * Get the estimated time (in millaseconds)
    * Remaining for the source.
    */
   getTimeRemaining(): Promise<number>;
 
-  /** Get the estimated end time
+  /**
+   * Get the estimated end time
    * for the source.
    */
   getEndTime(): Promise<Date>;
 
-  /** Get Start Time
+  /**
    * Get when the source started
    * playing on the current loop.
    */
   getStartTime(): Promise<Date>;
 
-  /** Get Remaining Loops
+  /**
    * Get the remaining times the
    * source will restart.
    */
@@ -53,16 +78,35 @@ interface SourceInterface {
 }
 
 export default class Source implements SourceInterface {
+  /**
+   * The ID of the source.
+   */
   ID: number;
 
+  /**
+   * The path of the file.
+   * This should be whatr you
+   * provided when you created
+   * the source.
+   */
   filePath: string;
 
+  /**
+   * The volume the source is currently set to.
+   */
   volume: number;
 
   private loop: number;
 
+  /**
+   * The estimated duration of the file.
+   * (In milliseconds)
+   */
   duration: number;
 
+  /**
+   * Wether the source is paused or not.
+   */
   isPaused: boolean;
 
   constructor(payload: SourceData) {
@@ -74,7 +118,7 @@ export default class Source implements SourceInterface {
     this.isPaused = payload.Paused;
   }
 
-  /** Write Data
+  /**
    * Write data to /tmp/audio.
    */
   private writeData = async () => {
@@ -88,6 +132,11 @@ export default class Source implements SourceInterface {
     await fs.writeFile('/tmp/audio', data);
   };
 
+  /**
+   * Toggles between playing and pausing
+   * returns a boolean indicating play
+   * status. true means playing
+   */
   togglePlaying = async () => {
     this.isPaused = !this.isPaused;
     await this.writeData();
@@ -95,35 +144,61 @@ export default class Source implements SourceInterface {
     return this.isPaused;
   };
 
+  /**
+   * Sets the number of times
+   * the audio file will loops.
+   * Negative n will loop forever
+   * Zero will play once.
+   */
   setLoop = async (n: number) => {
     this.loop = n;
     await this.writeData();
   };
 
+  /**
+   * Get the estimated time (in millaseconds)
+   * Remaining for the source.
+   */
   setVolume = async (n: number) => {
     this.volume = n;
     await this.writeData();
   };
 
+  /**
+   * Get the estimated time (in millaseconds)
+   * Remaining for the source.
+   */
   getTimeRemaining = async () => {
     const endTime = await this.getEndTime();
     const now = new Date();
 
-    return endTime.getMilliseconds() - now.getMilliseconds();
+    return endTime.getTime() - now.getTime();
   };
 
+  /**
+   * Get the estimated end time
+   * for the source.
+   */
   getEndTime = async () => {
     const payload = await getRawSource(this.ID);
 
     return new Date(payload.EndTime);
   };
 
+  /**
+   * Get when the source started
+   * playing on the current loop.
+   */
   getStartTime = async () => {
     const payload = await getRawSource(this.ID);
 
     return new Date(payload.StartTime);
   };
 
+  /**
+   * Get the remaining times the
+   * source will restart.
+   */
   getRemainingLoops = async () => {
     const payload = await getRawSource(this.ID);
     this.loop = payload.Loop;
