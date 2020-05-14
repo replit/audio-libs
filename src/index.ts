@@ -11,7 +11,15 @@ const knownIds: Array<number> = [];
 /**
  * Used to create a new audio source.
  */
-export async function createSource(filePath: string, volume = 1, loop = 0): Promise<Source> {
+export async function createSource({
+  filePath,
+  volume = 1,
+  loop = 0,
+}: {
+  filePath: string;
+  volume: number;
+  loop: number;
+}): Promise<Source> {
   if (typeof filePath !== 'string') {
     throw Error('File cannot be null.');
   }
