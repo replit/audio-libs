@@ -14,7 +14,7 @@
   "scripts": {
     "build": "rm -rf dist && tsc",
     "prepublishOnly": "yarn build",
-    "docs": "typedoc --out docs --name somepackage --includeDeclarations --excludeExternals src/index.ts",
+    "docs": "typedoc --out docs --name somepackage --includeDeclarations --excludeExternals src/index.ts src/source.ts src/types.ts",
     "test": "yarn test:lint && yarn test:format && yarn test:unit",
     "test:unit": "jest",
     "test:lint": "eslint src/ --ext .js,.ts,.tsx",

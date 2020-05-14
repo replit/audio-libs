@@ -2,8 +2,15 @@ import { promises as fs } from 'fs';
 import Source from './source';
 import { getAudioStatus, sleep } from './util';
 import { SourceData } from './types';
-
+/**
+ * A list of known source IDs used
+ * to determine new sources.
+ */
 const knownIds: Array<number> = [];
+
+/**
+ * Used to create a new audio source.
+ */
 export async function createSource(filePath: string, volume = 1, loop = 0): Promise<Source> {
   if (typeof filePath !== 'string') {
     throw Error('File cannot be null.');
