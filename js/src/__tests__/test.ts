@@ -12,7 +12,7 @@ describe('Creates sources', () => {
   });
 
   test('Can pause source', async () => {
-    const filePath = path.join(__dirname, '/test.wav');
+    const filePath = '../test.mp3'
 
     const source = await playFile({ filePath });
     expect(source.filePath).toEqual(filePath);
@@ -58,9 +58,9 @@ describe('Creates sources', () => {
     const filePath = path.join(__dirname, '/test.wav');
 
     const source = await playFile({ filePath });
-    expect(await source.getStartTime).toBeTruthy();
-    expect(await source.getEndTime).toBeTruthy();
-    expect(await source.getTimeRemaining).toBeTruthy();
+    expect(await source.getStartTime()).toBeTruthy();
+    expect(await source.getEndTime()).toBeTruthy();
+    expect(await source.getTimeRemaining()).toBeTruthy();
   });
 
   test('Can play a tone', async () => {

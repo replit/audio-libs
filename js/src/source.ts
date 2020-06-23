@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs';
-import { SourceData, RequestData } from './types';
+import { SourceData, RequestData, FileTypes } from './types';
 import { getRawSource } from './util';
 
 interface SourceInterface {
@@ -10,11 +10,11 @@ interface SourceInterface {
 
   /**
    * The path of the file.
-   * This should be whatr you
+   * This should be what you
    * provided when you created
    * the source.
    */
-  filePath: string;
+  filePath: string | undefined;
 
   /**
    * The volume the source is currently set to.
@@ -85,11 +85,11 @@ export default class Source implements SourceInterface {
 
   /**
    * The path of the file.
-   * This should be whatr you
+   * This should be what you
    * provided when you created
    * the source.
    */
-  filePath: string;
+  filePath: string | undefined;
 
   /**
    * The volume the source is currently set to.
@@ -124,7 +124,9 @@ export default class Source implements SourceInterface {
     this.loop = payload.Loop;
     this.duration = payload.Duration;
     this.ID = payload.ID;
-    this.filePath = payload.Name;
+    if (FileTypes.includes(payload.Request.Type)) {
+      this.filePath = payload.Request.Args.Path;
+    }
     this.isPaused = payload.Paused;
     this.name = payload.Name;
     this.request = payload.Request;

@@ -4,7 +4,7 @@ import replit
 from replit import audio, types
 from replit.types import WaveType
 
-test_file = './test.mp3'
+test_file = '../test.mp3'
 
 
 class TestAudio(unittest.TestCase):
