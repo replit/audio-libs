@@ -1,19 +1,20 @@
 import * as path from 'path';
-import { createSource } from '../index';
+import { playFile, playTone } from '../index';
 import { getRawSource, sleep } from '../util';
+import { WaveType } from '../types';
 
 describe('Creates sources', () => {
   test('Succesfully creates a source', async () => {
     const filePath = path.join(__dirname, '/test.wav');
 
-    const source = await createSource(filePath);
+    const source = await playFile({ filePath });
     expect(source.filePath).toEqual(filePath);
   });
 
   test('Can pause source', async () => {
     const filePath = path.join(__dirname, '/test.wav');
 
-    const source = await createSource(filePath);
+    const source = await playFile({ filePath });
     expect(source.filePath).toEqual(filePath);
 
     source.togglePlaying();
@@ -28,7 +29,7 @@ describe('Creates sources', () => {
   test('Can change volume', async () => {
     const filePath = path.join(__dirname, '/test.wav');
 
-    const source = await createSource(filePath);
+    const source = await playFile({ filePath });
 
     source.setVolume(2);
     await sleep(1000);
@@ -42,7 +43,7 @@ describe('Creates sources', () => {
   test('Can set loop', async () => {
     const filePath = path.join(__dirname, '/test.wav');
 
-    const source = await createSource(filePath);
+    const source = await playFile({ filePath });
 
     expect((await getRawSource(source.ID)).Loop).toEqual(0);
     expect(await source.getRemainingLoops()).toEqual(0);
@@ -56,9 +57,17 @@ describe('Creates sources', () => {
   test('Other functions return properly', async () => {
     const filePath = path.join(__dirname, '/test.wav');
 
-    const source = await createSource(filePath);
+    const source = await playFile({ filePath });
     expect(await source.getStartTime).toBeTruthy();
     expect(await source.getEndTime).toBeTruthy();
     expect(await source.getTimeRemaining).toBeTruthy();
+  });
+
+  test('Can play a tone', async () => {
+    await playTone({
+      seconds: 2,
+      pitch: 400,
+      type: WaveType.WaveSine,
+    });
   });
 });

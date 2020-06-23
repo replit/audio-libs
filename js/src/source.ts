@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs';
-import { SourceData } from './types';
+import { SourceData, RequestData } from './types';
 import { getRawSource } from './util';
 
 interface SourceInterface {
@@ -109,6 +109,16 @@ export default class Source implements SourceInterface {
    */
   isPaused: boolean;
 
+  /**
+   * The name of the source.
+   */
+  name: string;
+
+  /**
+   * The request used to get this source.
+   */
+  request: RequestData;
+
   constructor(payload: SourceData) {
     this.volume = payload.Volume;
     this.loop = payload.Loop;
@@ -116,6 +126,8 @@ export default class Source implements SourceInterface {
     this.ID = payload.ID;
     this.filePath = payload.Name;
     this.isPaused = payload.Paused;
+    this.name = payload.Name;
+    this.request = payload.Request;
   }
 
   /**

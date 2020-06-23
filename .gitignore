@@ -1,11 +1,16 @@
-node_modules/
+js/node_modules/
 
-docs/
-dist/
+js/docs/
+js/dist/
 
-yarn-error.log
-yarn-debug.log*
-yarn-error.log*
-.yarn-integrity
+js/yarn-error.log
+js/yarn-debug.log*
+js/yarn-error.log*
+js/.yarn-integrity
 
-.cache/
+js/.cache/
+
+python/replit/__pycache__
+python/docs/_build
+python/docs/_static
+python/_docs/_templates

@@ -3,6 +3,11 @@ import { AudioStatus, SourceData, SourceNotFoundError } from './types';
 
 const audioStatusPath = '/tmp/audioStatus.json';
 
+/**
+ * Returns the raw status data in /tmp/audioStatus.json
+ *
+ * This is an api call, you shouldn't need this for general usage.
+ */
 export async function getAudioStatus(): Promise<AudioStatus | null> {
   try {
     await fs.access(audioStatusPath);
@@ -27,7 +32,11 @@ export async function getAudioStatus(): Promise<AudioStatus | null> {
 
   return audioStatus;
 }
-
+/**
+ * This returns a SourceData object with the given ID.
+ *
+ * This is an api call, Source objects are returned when they are created.
+ */
 export async function getRawSource(id: number): Promise<SourceData> {
   const data = await getAudioStatus();
 
