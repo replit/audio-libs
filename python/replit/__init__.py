@@ -71,12 +71,12 @@ class Source:
     def get_start_time(self) -> datetime:
         'When the source started plaing'
         timestamp_str = self.__payload['StartTime']
-        timestamp = datetime.strptime(timestamp_str[:-4], "%Y-%m-%dT%H:%M:%S.%f")
+        timestamp = datetime.strptime(
+            timestamp_str[:-4], "%Y-%m-%dT%H:%M:%S.%f")
         return timestamp
-    
+
     start_time: datetime = property(get_start_time)
     'Property wrapper for :py:meth:`~replit.Source.get_start_time`'
-
 
     @property
     def path(self) -> str or None:
@@ -97,7 +97,7 @@ class Source:
             return timedelta(millaseconds=0)
 
         return timedelta(milliseconds=data['Remaining'])
-    
+
     remaining: int = property(get_remaining)
     'Property wrapper for :py:meth:`~replit.Source.get_remaining`'
 
@@ -110,7 +110,8 @@ class Source:
             return None
 
         timestamp_str = s['EndTime']
-        timestamp = datetime.strptime(timestamp_str[:-4], "%Y-%m-%dT%H:%M:%S.%f")
+        timestamp = datetime.strptime(
+            timestamp_str[:-4], "%Y-%m-%dT%H:%M:%S.%f")
         return timestamp
 
     end_time: datetime or None = property(get_end_time)
@@ -144,7 +145,7 @@ class Source:
             If the source is no longer known to the audio manager.
         '''
         self.__update_source(volume=volume)
-    
+
     volume: float = property(get_volume, set_volume)
     'Property wrapper for :py:meth:`~replit.Source.get_volume` and :py:meth:`~replit.Source.set_volume`'
 
@@ -172,14 +173,14 @@ class Source:
 
     def get_loops_remaining(self) -> int or None:
         '''The remaining amount of times the file will restart.	Returns none if the source is done playing.
-        
+
         Returns
         -------
         int
             The number of loops remaining
         None
             The source can't be found, either because it has finished playing or an error occured.
-        
+
         '''
         if not self._loops:
             return 0
@@ -192,7 +193,6 @@ class Source:
             loops = s['Loop']
 
             return loops
-
 
     def set_loop(self, loop_count: int) -> None:
         '''Set the remaining amount of loops for the source.
@@ -214,7 +214,7 @@ class Source:
         does_loop = loop_count != 0
         self._loops = does_loop
         self.__update_source(doesLoop=does_loop, loopCount=loop_count)
-    
+
     loops_remaining: int or None = property(get_loops_remaining)
     'Property wrapper for :py:meth:`~replit.Source.get_loops_remaining`'
 

@@ -60,6 +60,8 @@ export interface RequestArgs {
    * The wave type of the tone.
    */
   WaveType?: WaveType;
+  // {"Volume":1,"DoesLoop":false,"LoopCount":0,"Type":"mp3","Name":"2","Args":{"Path":"../te
+  // st.mp3"}}
 
   /**
    * Path to the file (if reading from a file)
