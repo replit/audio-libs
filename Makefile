@@ -1,6 +1,6 @@
 
 
-.PHONY test-all docs-all
+.PHONY: test-all docs-all
 
 
 test-all:

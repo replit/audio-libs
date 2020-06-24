@@ -33,7 +33,6 @@ async function getNewSource(name: string): Promise<SourceData> {
     }
 
     const audioStatus = await getAudioStatus();
-
     if (!audioStatus) {
       // We don't have an audio status, wait and retry
       await sleep(100);
@@ -97,7 +96,7 @@ export async function playFile({
   let isValid = false;
   let fileType: ReaderType = ReaderType.WavFile;
   for (const type of FileTypes) {
-    if (filePath.endsWith(`.${type}`)) {
+    if (filePath.endsWith(`.${type.toString()}`)) {
       isValid = true;
       fileType = type;
       break;
@@ -127,7 +126,6 @@ export async function playFile({
   };
 
   const jsonData = JSON.stringify(data);
-
   await fs.writeFile('/tmp/audio', jsonData);
 
   const payload = await getNewSource(name);

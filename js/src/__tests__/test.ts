@@ -5,14 +5,14 @@ import { WaveType } from '../types';
 
 describe('Creates sources', () => {
   test('Succesfully creates a source', async () => {
-    const filePath = path.join(__dirname, '/test.wav');
+    const filePath = path.join(__dirname, '../test.mp3');
 
     const source = await playFile({ filePath });
     expect(source.filePath).toEqual(filePath);
   });
 
   test('Can pause source', async () => {
-    const filePath = '../test.mp3'
+    const filePath = path.join(__dirname, '../test.mp3');
 
     const source = await playFile({ filePath });
     expect(source.filePath).toEqual(filePath);
@@ -27,7 +27,7 @@ describe('Creates sources', () => {
   });
 
   test('Can change volume', async () => {
-    const filePath = path.join(__dirname, '/test.wav');
+    const filePath = path.join(__dirname, '../test.mp3');
 
     const source = await playFile({ filePath });
 
@@ -41,7 +41,7 @@ describe('Creates sources', () => {
   });
 
   test('Can set loop', async () => {
-    const filePath = path.join(__dirname, '/test.wav');
+    const filePath = path.join(__dirname, '../test.mp3');
 
     const source = await playFile({ filePath });
 
@@ -55,12 +55,12 @@ describe('Creates sources', () => {
   });
 
   test('Other functions return properly', async () => {
-    const filePath = path.join(__dirname, '/test.wav');
+    const filePath = path.join(__dirname, '../test.mp3');
 
     const source = await playFile({ filePath });
-    expect(await source.getStartTime()).toBeTruthy();
-    expect(await source.getEndTime()).toBeTruthy();
-    expect(await source.getTimeRemaining()).toBeTruthy();
+    expect(await source.getStartTime).toBeTruthy();
+    expect(await source.getEndTime).toBeTruthy();
+    expect(await source.getTimeRemaining).toBeTruthy();
   });
 
   test('Can play a tone', async () => {

@@ -41,7 +41,7 @@ export enum ReaderType {
 export const FileTypes: Array<ReaderType> = [
   ReaderType.WavFile,
   ReaderType.AiffFile,
-  ReaderType.Tone,
+  ReaderType.MP3File,
 ];
 
 /**
