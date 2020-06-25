@@ -404,7 +404,7 @@ class Audio():
                 raise NoSuchSourceException('No sources exist yet.')
             for s in data['Sources']:
 
-                if s.ID == int(source_id):
+                if s['ID'] == int(source_id):
                     source = s
                     break
         if not source:
