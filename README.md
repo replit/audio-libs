@@ -1,17 +1,10 @@
-# README!
+# Repl.it Audio libraries
 
-[![Run on Repl.it](https://repl.it/badge/github/replit/audio-js)](https://repl.it/github/replit/audio-js)
+Try it out:
++ JS / TS library [![Run on Repl.it](https://repl.it/badge/github/replit/audio-libs)](https://repl.it/github/replit/audio-js)
++ Python library [demo here](https://repl.it/@AllAwesome497/Audio-Demo#main.py)
 
-This is a boilerplate for typescript packages. Find and replace "`somepackage`" with the name of your package.
 
-✔️ Compiles your package into commonjs using the typescript compiler - `yarn build`
+<!--## Want to contribute?-->
 
-✔️ Bundles the package for browser usage using parcel - `yarn build:browser`
-
-✔️ Test your package using jest (tests go under `src/**/__tests__/**`) - `yarn test:unit`
-
-✔️ Has eslint and prettier setup - `yarn test:lint && yarn test:format`
-
-✔️ Has a precommit hook for auto-fixing formatting and linting using lint-staged [supports partial commits](https://medium.com/hackernoon/announcing-lint-staged-with-support-for-partially-staged-files-abc24a40d3ff)
-
-✔️ Can generate docs from the code using [typedoc](https://typedoc.org/) - `yarn docs`
+<!--Feel free to contribute your own libraries or change our libraries!-->
