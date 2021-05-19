@@ -423,7 +423,7 @@ class Audio():
         '''
         with open('/tmp/audioStatus.json', 'r') as f:
             data = AudioStatus(json.loads(f.read()))
-            if data['Sources'] == None:
+            if data['Sources'] is None:
                 data['Sources']: List[SourceData] = []
             return data
 
